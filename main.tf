@@ -5,6 +5,25 @@ resource "google_project" "rivet_project" {
   billing_account = var.billing_account_id
 }
 
+# Create a service account
+resource "google_service_account" "rivet_service_account" {
+  account_id   = "rivet-service-account"
+  display_name = "Rivet Service Account"
+  project      = google_project.rivet_project.project_id
+}
+
+# Grant the service account the necessary roles
+resource "google_project_iam_member" "service_account_roles" {
+  for_each = toset([
+    "roles/storage.objectViewer",    # Allows reading objects from Cloud Storage
+    "roles/lifesciences.workflowsRunner"  # Allows running Life Sciences workflows
+  ])
+
+  project = google_project.rivet_project.project_id
+  role    = each.value
+  member  = "serviceAccount:${google_service_account.rivet_service_account.email}"
+}
+
 # Create a storage bucket
 resource "google_storage_bucket" "rivet_bucket" {
   name          = var.bucket_id
