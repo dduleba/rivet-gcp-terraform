@@ -17,4 +17,19 @@ resource "google_storage_bucket" "rivet_bucket" {
   versioning {
     enabled = true
   }
+}
+
+# Enable required APIs
+resource "google_project_service" "required_apis" {
+  for_each = toset([
+    "lifesciences.googleapis.com",    # Cloud Life Sciences API
+    "compute.googleapis.com",         # Compute Engine API
+    "logging.googleapis.com"          # Cloud Logging API
+  ])
+
+  project = google_project.rivet_project.project_id
+  service = each.value
+
+  disable_dependent_services = true
+  disable_on_destroy        = false
 } 
