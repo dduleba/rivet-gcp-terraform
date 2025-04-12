@@ -12,6 +12,7 @@ variable "region" {
 variable "bucket_id" {
   description = "The name of the bucket to create"
   type        = string
+  default     = "rivet-data"
 }
 
 variable "bucket_location" {

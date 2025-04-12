@@ -83,3 +83,21 @@ It is done based on instructions from https://turakhia.ucsd.edu/rivet/gcp_setup.
    ```bash
    terraform destroy
    ```
+
+## Managing Files in the GCP Bucket
+
+After setting up the infrastructure, you can use `gsutil` (part of Google Cloud SDK) to manage files in your bucket. Here are some common commands:
+
+1. List files in the bucket:
+   ```bash
+   gsutil ls gs://rivet-data/
+   ```
+
+2. Upload a file to the bucket:
+   ```bash
+   gsutil cp local-file.txt gs://rivet-data/
+   ```
+
+Note: The bucket name `rivet-data` is the default value. If you've specified a different name in your `terraform.tfvars`, use that name instead.
+
+For more information about gsutil commands, visit the [official documentation](https://cloud.google.com/storage/docs/gsutil/commands).
