@@ -51,4 +51,16 @@ resource "google_project_service" "required_apis" {
 
   disable_dependent_services = true
   disable_on_destroy        = false
+}
+
+# Create a service account key
+resource "google_service_account_key" "rivet_service_account_key" {
+  service_account_id = google_service_account.rivet_service_account.name
+}
+
+# Output the service account key (sensitive)
+output "service_account_key" {
+  value     = base64decode(google_service_account_key.rivet_service_account_key.private_key)
+  sensitive = true
+  description = "The private key of the service account in JSON format"
 } 

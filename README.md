@@ -66,13 +66,20 @@ It is done based on instructions from https://turakhia.ucsd.edu/rivet/gcp_setup.
    terraform apply
    ```
 
+4. After successful apply, retrieve and save the service account key:
+   ```bash
+   # Get the service account key and save it to a file
+   terraform output -raw service_account_key > rivet-service-account-key.json
+   
+   # Ensure the key file has restricted permissions
+   chmod 600 rivet-service-account-key.json
+   mv rivet-service-account-key.json ~/.config/gcloud/
+   ```
+
+   Note: Keep this key secure and never commit it to version control.
+
+
 4. To destroy the infrastructure:
    ```bash
    terraform destroy
    ```
-
-## Infrastructure Components
-
-- GCP Project
-- Cloud Storage Bucket with versioning enabled
-- Uniform bucket-level access enabled 
