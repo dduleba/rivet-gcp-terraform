@@ -15,8 +15,9 @@ resource "google_service_account" "rivet_service_account" {
 # Grant the service account the necessary roles
 resource "google_project_iam_member" "service_account_roles" {
   for_each = toset([
-    "roles/storage.objectViewer",    # Allows reading objects from Cloud Storage
-    "roles/lifesciences.workflowsRunner"  # Allows running Life Sciences workflows
+    "roles/storage.admin",           # Allows full access to Cloud Storage
+    "roles/lifesciences.workflowsRunner",  # Allows running Life Sciences workflows
+    "roles/iam.serviceAccountUser"   # Allows acting as other service accounts
   ])
 
   project = google_project.rivet_project.project_id
