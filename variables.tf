@@ -6,7 +6,7 @@ variable "project_id" {
 variable "region" {
   description = "The region to deploy to"
   type        = string
-  default     = "europe-west1"
+  default     = "us-central1"
 }
 
 variable "bucket_id" {
@@ -18,7 +18,7 @@ variable "bucket_id" {
 variable "bucket_location" {
   description = "The location of the bucket"
   type        = string
-  default     = "EU"
+  default     = "us-central1"
 }
 
 variable "billing_account_id" {
